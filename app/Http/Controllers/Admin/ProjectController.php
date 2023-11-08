@@ -67,13 +67,13 @@ class ProjectController extends Controller
         $project->slug = Str::slug($project->name);
         $project->save();
 
-        $project->technologies()->attach(1);
-        $project->technologies()->attach(2);
-        $project->technologies()->attach(3); 
+        // $project->technologies()->attach(1);
+        // $project->technologies()->attach(2);
+        // $project->technologies()->attach(3); 
         
-        // if (Arr::exists( $data,"technologies")) {
-        // $project->technologies()->attach($data['technologies']);
-        // }
+        if (Arr::exists( $data,"technologies")) {
+        $project->technologies()->attach($data['technologies']);
+        }
         
         
         if ($request->hasFile("cover_image")) {
