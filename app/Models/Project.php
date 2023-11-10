@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Models\Technology;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
 
 class Project extends Model
 {
@@ -39,5 +41,9 @@ public function getTecBadge() {
 
     public function getAbstract($chars = 50) {
         return strlen($this->content) > $chars ? substr($this->content,0, $chars) . "..." : $this->content;
+    }
+
+    public function getAbsUriImage() {
+        return $this->cover_image ? Storage::url($this->cover_image) : null;
     }
 }

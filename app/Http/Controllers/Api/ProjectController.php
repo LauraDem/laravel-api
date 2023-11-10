@@ -18,11 +18,19 @@ class ProjectController extends Controller
     public function index()
     {
         
-            $projects = Project::select('id', 'type_id', 'name', 'slug' )->where('published', 1)->with('type:id,color,label')->paginate(12); 
+            $projects = Project::select('id', 'type_id', 'name', 'slug', 'content', 'cover_image' )
+            ->orderByDesc('id')
+            ->where('published', 1)->with('type:id,color,label')
+            ->paginate(12); 
         
+
+
+            foreach ($projects as $project) {
+                $project->content = $project->getAbstract(100);
+                $project->cover_image = $project->getAbsUriImage();
+            }
+
             return response()->json($projects);
-     
-        
     }
 
 
