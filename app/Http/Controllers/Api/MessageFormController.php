@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MessageFormController extends Controller
 {
     public function store() {
-        // header("Access-Control-Allow-Origin: http://localhost:5174");
-        // header("Access-Control-Allow-Headers: X-Requested-With");
-
-        echo "ok";
+        
+        $destinatario = Auth::user()->email;
+        Mail::to($destinatario)->send(new NewMessage());
 
     }
 }
