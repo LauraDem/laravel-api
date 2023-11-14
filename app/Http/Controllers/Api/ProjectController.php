@@ -38,11 +38,17 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * *@return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $project = Project::select('id', 'type_id', 'name', 'slug', 'content', 'cover_image' )
+        ->where('id' , $id)
+        ->with('type:id,color,label')
+        ->first();  
+
+        $project->cover_image = $project->getAbsUriImage();
+        return response()->json($project);
     }
 
 

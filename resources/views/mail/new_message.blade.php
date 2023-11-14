@@ -1,9 +1,9 @@
 <x-mail::message>
-Nuovo messaggio da User:
+Hai un nuovo messaggio da {{ $name }}
 
-messaggio
+> {{$message}}
 
-<x-mail::button :url="''">
-Vedi messaggio 
+<x-mail::button :url="'mailto:' . $email">
+Rispondi
 </x-mail::button>
 </x-mail::message>

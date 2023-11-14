@@ -13,14 +13,21 @@ class NewMessage extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $name;
+    public $email;
+    public $message;
+
     /**
      * Create a new message instance.
      *
-     * @return void
+     * *@return void
      */
-    public function __construct()
+    public function __construct($name, $email, $message)
+
     {
-        //
+        $this->$name = $name;
+        $this->$email = $email; 
+        $this->$message = $message;
     }
 
     /**
@@ -32,18 +39,24 @@ class NewMessage extends Mailable
     {
         return new Envelope(
             subject: 'Nuovo messaggio',
+            
         );
     }
 
     /**
      * Get the message content definition.
      *
-     * @return \Illuminate\Mail\Mailables\Content
+     * *@return \Illuminate\Mail\Mailables\Content
      */
     public function content()
     {
         return new Content(
             markdown: 'mail.new_message',
+            with: [
+                'name'=> $this->name,
+                'email'=> $this->email,
+                'message'=> $this->message,
+            ]
         );
     }
 
